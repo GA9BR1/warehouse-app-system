@@ -1,0 +1,48 @@
+pt-BR:
+  pending: 'Pendente'
+  canceled: 'Cancelado'
+  delivered: 'Entregue'
+  activerecord:
+    models:
+      warehouse: 'Galpão'
+      supplier: 'Fornecedor'
+      product_model: 'Modelo de Produto'
+      order:
+        one: 'Pedido'
+        other: 'Pedidos'
+    attributes:
+      warehouse: 
+        name: "Nome"
+        code: "Código"
+        description: "Descrição"
+        cep: "CEP"
+        address: "Endereço"
+        city: "Cidade"
+        area: "Área"
+      supplier:
+        corporate_name: 'Razão Social'
+        brand_name: 'Nome Fantasia'
+        registration_number: 'CNPJ'
+        full_address: 'Endereço'
+        city: 'Cidade'
+        state: 'Estado'
+        email: 'E-mail'
+      product_model:
+        name: 'Nome'
+        weight: 'Peso'
+        width: 'Largura'
+        height: 'Altura'
+        depth: 'Profundidade'
+        sku: 'SKU'
+        supplier_id: 'Fornecedor'
+      user:
+        name: 'Nome'
+      order:
+        warehouse_id: 'Galpão Destino'
+        supplier_id: 'Fornecedor'
+        estimated_delivery_date: 'Data Prevista de Entrega'
+        user_id: 'Usuário Responsável'
+        code: 'Código'
+        status: 'Situação do Pedido'
+      order_item: 
+        product_model_id: 'Produto'

@@ -1,0 +1,13 @@
+<h1>Novo item para o Pedido <%= @order.code %></h1>
+
+<%= form_with(model: [@order, @order_item]) do |f| %>
+  <div>
+    <%= f.label :product_model_id %>
+    <%= f.collection_select :product_model_id, @order.supplier.product_models, :id, :name%>
+  </div>
+  <div>
+    <%= f.label :quantity, 'Quantidade' %>
+    <%= f.number_field :quantity %>
+  </div>
+  <%= f.submit 'Gravar' %>
+<% end %>

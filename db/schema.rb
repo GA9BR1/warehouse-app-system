@@ -10,7 +10,81 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_19_173137) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_25_144912) do
+  create_table "order_items", force: :cascade do |t|
+    t.integer "product_model_id", null: false
+    t.integer "order_id", null: false
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["product_model_id"], name: "index_order_items_on_product_model_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "warehouse_id", null: false
+    t.integer "supplier_id", null: false
+    t.integer "user_id", null: false
+    t.date "estimated_delivery_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "code"
+    t.integer "status", default: 0
+    t.index ["supplier_id"], name: "index_orders_on_supplier_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+    t.index ["warehouse_id"], name: "index_orders_on_warehouse_id"
+  end
+
+  create_table "product_models", force: :cascade do |t|
+    t.string "name"
+    t.integer "weight"
+    t.integer "width"
+    t.integer "height"
+    t.integer "depth"
+    t.string "sku"
+    t.integer "supplier_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["supplier_id"], name: "index_product_models_on_supplier_id"
+  end
+
+  create_table "stock_products", force: :cascade do |t|
+    t.integer "warehouse_id", null: false
+    t.integer "order_id", null: false
+    t.integer "product_model_id", null: false
+    t.string "serial_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_stock_products_on_order_id"
+    t.index ["product_model_id"], name: "index_stock_products_on_product_model_id"
+    t.index ["warehouse_id"], name: "index_stock_products_on_warehouse_id"
+  end
+
+  create_table "suppliers", force: :cascade do |t|
+    t.string "corporate_name"
+    t.string "brand_name"
+    t.string "registration_number"
+    t.string "full_address"
+    t.string "city"
+    t.string "state"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
   create_table "warehouses", force: :cascade do |t|
     t.string "name"
     t.string "code"
@@ -23,4 +97,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_173137) do
     t.string "description"
   end
 
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "product_models"
+  add_foreign_key "orders", "suppliers"
+  add_foreign_key "orders", "users"
+  add_foreign_key "orders", "warehouses"
+  add_foreign_key "product_models", "suppliers"
+  add_foreign_key "stock_products", "orders"
+  add_foreign_key "stock_products", "product_models"
+  add_foreign_key "stock_products", "warehouses"
 end
