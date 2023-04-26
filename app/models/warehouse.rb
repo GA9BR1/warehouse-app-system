@@ -6,6 +6,7 @@ class Warehouse < ApplicationRecord
   validates :cep, length: { is: 9 }
   validates :cep, format: { with: /\A\d+-\d{3}\z/ }
   validates :area, numericality: true
+  has_many :stock_products
 
   def full_description
     "#{code} - #{name}"
