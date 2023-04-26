@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Order, type: :model do
   describe '#valid?' do 
+
     it 'deve ter um código' do
       user = User.create!(name: 'Sérgio Ramos', email: 'sergio@email.com', password: 'password')
       warehouse = Warehouse.create!(name: 'Cuiabá', code: 'CWB', area: 10_000, cep: '56000-000',
@@ -36,6 +37,7 @@ RSpec.describe Order, type: :model do
     end
   end
   describe 'gera um código aleatório' do
+
     it 'ao criar um novo pedido' do
     user = User.create!(name: 'Sérgio Ramos', email: 'sergio@email.com', password: 'password')
     warehouse = Warehouse.create!(name: 'Cuiabá', code: 'CWB', area: 10_000, cep: '56000-000',
@@ -49,6 +51,7 @@ RSpec.describe Order, type: :model do
     expect(order.code).not_to(be_empty)
     expect(order.code.length).to eq 8
     end
+
     it 'e o código é único' do
       user = User.create!(name: 'Sérgio Ramos', email: 'sergio@email.com', password: 'password')
       warehouse = Warehouse.create!(name: 'Cuiabá', code: 'CWB', area: 10_000, cep: '56000-000',
@@ -62,6 +65,21 @@ RSpec.describe Order, type: :model do
       second_order.save!
       expect(second_order.code).not_to eq(first_order.code)
       expect(second_order.code.length).to eq 8
+    end
+
+    it 'e não deve ser modificado' do 
+      user = User.create!(name: 'Sérgio Ramos', email: 'sergio@email.com', password: 'password')
+      warehouse = Warehouse.create!(name: 'Cuiabá', code: 'CWB', area: 10_000, cep: '56000-000',
+                        city: 'Cuiabá', description: 'Galpão no centro do país',
+                        address: 'Av dos Jacarés, 1000')
+      supplier = Supplier.create!(corporate_name: 'Spark Industries Brasil LTDA', brand_name: 'Spark',
+                       registration_number: '45097902000126', full_address: 'Torre da Industria, 1',
+                       city: 'Teresina', state: 'PI', email: 'industries@spark.com')
+      order = Order.create!(user: user, warehouse: warehouse, supplier: supplier, estimated_delivery_date: 1.week.from_now)
+      original_code = order.code
+      order.update!(estimated_delivery_date: 1.month.from_now)
+
+      expect(order.code).to eq(original_code)
     end
   end
 end
