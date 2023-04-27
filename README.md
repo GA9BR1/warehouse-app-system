@@ -1,24 +1,8 @@
-# README
+# Warehouse Management App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Esta aplicação é responsável pela gestão de galpões e do estoque de cada galpão. Os galpões estão espalhados por vários endereços no país e são responsáveis por receber produtos novos comprados pela empresa, manter os dados de estoque atualizados, registrar a saída de produtos. Os produtos são comprados de fornecedorese a entrada dos produtos está sempre vinculada a um pedido. Todas estas informações também são cadastradas no sistema.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Principais tecnologias utilizadas:
+- Ruby on Rails
+- Capybara
+- Rspec

@@ -1,0 +1,21 @@
+  <%= form_with(url: warehouse_stock_product_destinations_path(@warehouse.id)) do |f|%>
+    <div>
+      <%= f.label :product_model_id, 'Item para Saída'%>
+      <select name="" id="", disabled>
+        <option value="">Não há produtos no estoque</option>
+      </select>
+    </div>
+    <div>
+      <%= f.label :quantity, 'Quantidade' %>
+      <%= f.number_field :quantity, disabled: true%>
+    </div>
+    <div>
+      <%= f.label :recipient, 'Destinatário' %>
+      <%= f.text_field :recipient, disabled: true%>
+    </div>
+    <div>
+      <%= f.label :address, 'Endereço Destino' %>
+      <%= f.text_field :address, disabled: true%>
+    </div>
+    <%= f.submit 'Confirmar Retirada', disabled: true%>
+  <% end %>

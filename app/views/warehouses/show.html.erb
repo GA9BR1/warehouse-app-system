@@ -12,12 +12,21 @@
 <%= button_to 'Remover', warehouse_path(@warehouse.id), method: :delete%>
 </div>
 
-<div>
+<section id="stock_products">
   <h2>Itens em Estoque</h2>
   <% @stocks.each_pair do |pm, quantity| %>
     <%= quantity %> x <%= pm.name %> | <%= pm.sku %>
   <% end %>
-</div>
+</section>
+
+<section id="stock_destination">
+  <h2>Saída de Estoque</h2>
+  <% if !@product_models.count.zero? %>
+    <%= render 'form-enable' %>
+  <% else %>
+    <%= render 'form-disable' %>
+  <% end %>
+</section>
 
 <div>
   <%= link_to 'Voltar', root_path %>
