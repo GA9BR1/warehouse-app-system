@@ -1,0 +1,42 @@
+<% if @stock_out_validation.errors.any? %>
+  <p>Verifique os erros abaixo: </p>
+  <ul>
+    <% @stock_out_validation.errors.full_messages.each do |msg| %>
+      <li> <%= msg %> </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<h1>Galpão <%= warehouse.code %></h1>
+<h2><%= warehouse.description%></h2>
+<div>
+  <strong>Nome:</strong> <%= warehouse.name %>
+  <strong>Cidade:</strong> <%= warehouse.city%>
+  <strong>Área:</strong> <%= warehouse.area %> m²
+  <strong>Endereço:</strong> <%= warehouse.address %> <strong>CEP:</strong> <%= warehouse.cep %>
+</div>
+
+<div>
+<%= link_to 'Editar', edit_warehouse_path(warehouse.id) %>
+<%= button_to 'Remover', warehouse_path(warehouse.id), method: :delete%>
+</div>
+
+<section id="stock_products">
+  <h2>Itens em Estoque</h2>
+  <% stocks.each_pair do |pm, quantity| %>
+    <%= quantity %> x <%= pm.name %> | <%= pm.sku %>
+  <% end %>
+</section>
+
+<section id="stock_destination">
+  <h2>Saída de Estoque</h2>
+  <% if !product_models.count.zero? %>
+    <%= render partial: 'shared/form-enable', locals: {stock_out_validation: @stock_out_validation, product_models: product_models, warehouse_id: warehouse.id}%>
+  <% else %>
+    <%= render partial: 'shared/form-disable', locals: {warehouse_id: warehouse.id} %>
+  <% end %>
+</section>
+
+<div>
+  <%= link_to 'Voltar', root_path %>
+</div>

@@ -6,6 +6,7 @@ class WarehousesController < ApplicationController
     @stocks = @warehouse.stock_products.where.missing(:stock_product_destination).group(:product_model).count
     product_models_ids = @warehouse.stock_products.where.missing(:stock_product_destination).pluck(:product_model_id).uniq
     @product_models = ProductModel.where(id: product_models_ids)
+    @stock_out_validation = StockOutValidation.new
   end
 
   def new

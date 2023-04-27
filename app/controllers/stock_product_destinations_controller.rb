@@ -2,7 +2,7 @@ class StockProductDestinationsController < ApplicationController
   before_action :authenticate_user!
   before_action :validates_out
 
-  def create 
+  def create
     warehouse = Warehouse.find(params[:warehouse_id])
     product_model = ProductModel.find(params[:stock_out_validation][:product_model_id])
     quantidade = params[:stock_out_validation][:quantity]
@@ -29,10 +29,16 @@ class StockProductDestinationsController < ApplicationController
                                                  :address)
   end
 
+  private 
+
   def validates_out
-    stock_out = StockOutValidation.new(supplier_params)
-    if !stock_out.valid?
-      redirect_to warehouse_path(params[:warehouse_id]), notice: 'Não devem haver campos em branco'
+    @stock_out_validation = StockOutValidation.new(supplier_params)
+    if !@stock_out_validation.valid?
+      warehouse = Warehouse.find(params[:warehouse_id])
+      stocks = warehouse.stock_products.where.missing(:stock_product_destination).group(:product_model).count
+      product_models_ids = warehouse.stock_products.where.missing(:stock_product_destination).pluck(:product_model_id).uniq
+      product_models = ProductModel.where(id: product_models_ids)
+      return render template: 'shared/show_warehouse', id: params[:warehouse_id], locals: {stocks: stocks, product_models: product_models, warehouse: warehouse}
     end
   end
 
