@@ -1,4 +1,4 @@
-<%= form_with(url: warehouse_stock_product_destinations_path(@warehouse.id)) do |f|%>
+<%= form_with(model: StockOutValidation.new, url: warehouse_stock_product_destinations_path(@warehouse.id)) do |f|%>
   <div>
     <%= f.label :product_model_id, 'Item para Saída'%>
     <%= f.collection_select :product_model_id, @product_models, :id, :sku %>
