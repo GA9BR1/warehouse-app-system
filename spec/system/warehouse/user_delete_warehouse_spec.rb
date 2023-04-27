@@ -2,6 +2,8 @@ require 'rails_helper'
 
 describe 'Usuário remove um galpão' do
   it 'com sucesso' do
+    user = User.create!(name: 'André', email: 'andre@email.com', password: 'password')
+    login_as(user)
     Warehouse.create(name: 'Cuiabá', code: 'CWB', area: 10000, cep: '56000-000',
                      city: 'Cuiabá', description: 'Galpão no centro do país',
                      address: 'Av dos Jacarés, 1000')
@@ -17,6 +19,8 @@ describe 'Usuário remove um galpão' do
   end
 
   it 'e não apaga outros galpões' do
+    user = User.create!(name: 'André', email: 'andre@email.com', password: 'password')
+    login_as(user)
     Warehouse.create!(name: 'Cuiabá', code: 'CWB', area: 10_000, cep: '56000-000',
                       city: 'Cuiabá', description: 'Galpão no centro do país',
                       address: 'Av dos Jacarés, 1000')

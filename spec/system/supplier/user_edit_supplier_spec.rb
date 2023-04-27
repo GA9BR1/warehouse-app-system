@@ -2,6 +2,8 @@ require 'rails_helper'
 
 describe 'Usuário edita um fornecedor' do
   it 'A partir da página de detalhes' do
+    user = User.create!(name: 'André', email: 'andre@email.com', password: 'password')
+    login_as(user)
     Supplier.create!(corporate_name: 'ACME LTDA', brand_name: 'ACME', 
                      registration_number: '28260675000199', full_address: 'Av das Palmas, 100',
                      city: 'Bauru', state: 'SP', email: 'contato@acmeltda.com')
@@ -20,6 +22,8 @@ describe 'Usuário edita um fornecedor' do
   end
 
   it 'com sucesso' do
+    user = User.create!(name: 'André', email: 'andre@email.com', password: 'password')
+    login_as(user)
     Supplier.create!(corporate_name: 'ACME LTDA', brand_name: 'ACME', 
                      registration_number: '28260675000199', full_address: 'Av das Palmas, 100',
                      city: 'Bauru', state: 'SP', email: 'contato@acmeltda.com')
@@ -39,6 +43,8 @@ describe 'Usuário edita um fornecedor' do
   end
 
   it 'e mantêm os campos obrigatórios' do
+    user = User.create!(name: 'André', email: 'andre@email.com', password: 'password')
+    login_as(user)
     Supplier.create!(corporate_name: 'ACME LTDA', brand_name: 'ACME', 
                      registration_number: '28260675000199', full_address: 'Av das Palmas, 100',
                      city: 'Bauru', state: 'SP', email: 'contato@acmeltda.com')

@@ -1,4 +1,5 @@
 class OrderItemsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_order_and_check_user, only: [:new, :create]
   def new
     @order_item = OrderItem.new

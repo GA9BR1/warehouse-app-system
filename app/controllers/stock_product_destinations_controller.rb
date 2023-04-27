@@ -1,4 +1,5 @@
 class StockProductDestinationsController < ApplicationController
+  before_action :authenticate_user!
   before_action :validates_out
 
   def create 
@@ -34,4 +35,5 @@ class StockProductDestinationsController < ApplicationController
       redirect_to warehouse_path(params[:warehouse_id]), notice: 'Não devem haver campos em branco'
     end
   end
+
 end

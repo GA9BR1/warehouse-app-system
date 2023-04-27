@@ -2,6 +2,8 @@ require 'rails_helper'
 
 describe 'Usuário vê detalhes de um galpão' do
   it 'e vê informações adicionais' do
+    user = User.create!(name: 'André', email: 'andre@email.com', password: 'password')
+    login_as(user)
     Warehouse.create(name: 'Aeroporto SP', code: 'GRU', city: 'Guarulhos', area: 100_000,
                      address: 'Avenida do Aeroporto, 1000', cep: '15000-000',
                      description: 'Galpão destinado para cargas internacionais')
@@ -18,6 +20,8 @@ describe 'Usuário vê detalhes de um galpão' do
   end
 
   it 'e volta para a tela inicial' do
+    user = User.create!(name: 'André', email: 'andre@email.com', password: 'password')
+    login_as(user)
     Warehouse.create(name: 'Aeroporto SP', code: 'GRU', city: 'Guarulhos', area: 100_000,
                      address: 'Avenida do Aeroporto, 1000', cep: '15000-000',
                      description: 'Galpão destinado para cargas internacionais')

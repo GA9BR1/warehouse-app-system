@@ -2,6 +2,8 @@ require 'rails_helper'
 
 describe 'Usuário vê fornecedores' do
   it 'a partir do menu' do
+    user = User.create!(name: 'André', email: 'andre@email.com', password: 'password')
+    login_as(user)
     visit root_path
     within 'nav' do
       click_on 'Fornecedores'
@@ -10,6 +12,8 @@ describe 'Usuário vê fornecedores' do
   end
 
   it 'com sucesso' do
+    user = User.create!(name: 'André', email: 'andre@email.com', password: 'password')
+    login_as(user)
     Supplier.create!(corporate_name: 'ACME LTDA', brand_name: 'ACME', 
                      registration_number: '28260675000199', full_address: 'Av das Palmas, 100',
                      city: 'Bauru', state: 'SP', email: 'contato@acmeltda.com')
@@ -27,6 +31,8 @@ describe 'Usuário vê fornecedores' do
   end
 
   it 'e não existem fornecedores cadastrados' do
+    user = User.create!(name: 'André', email: 'andre@email.com', password: 'password')
+    login_as(user)
     visit root_path
     click_on 'Fornecedores'
     expect(page).to have_content('Não existem fornecedores cadastrados')
